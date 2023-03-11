@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState,useEffect} from 'react'
 
 function App() {
+  const [items,setItem] = useState([])
+  useEffect(()=>{
+    fetch('https://enchanting-leotard-calf.cyclic.app/cabal')
+    .then(res => res.json())
+    .then((result)=>{
+      console.log(result)
+      setItem(result)
+    })
+  },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    
+    <div>
+      <h1>Cabal Monitoring</h1>
+       <ul>
+     {items.map((item)=>(
+      <li key={item.id}>
+        ID   :{item.Username} 
+        . Level: {item.Level} 
+        . Gem  : {item.Gem} 
 
-export default App;
+      </li>
+     ))}
+     </ul>
+    </div>
+  )
+};
+
+export default App
